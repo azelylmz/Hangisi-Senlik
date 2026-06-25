@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feed Oluşturucu — Hangisi Şenlik</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#061D3A;--navy-soft:#4A5A6E;--teal:#10B98F;--teal-dark:#0E9E7A;--cream:#F3F0E6;--card:#FBFAF5;--line:#E6E2D6;--amber:#F2B705;--shadow:0 1px 0 rgba(6,29,58,.03),0 16px 34px -20px rgba(6,29,58,.28)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--cream);color:var(--navy);font-family:"Montserrat",system-ui,sans-serif;font-size:15px;line-height:1.55;font-weight:500;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:30px 22px 80px}
+  .lock{display:flex;align-items:center;gap:11px;margin-bottom:6px}
+  .box{width:34px;height:34px}.wm{display:flex;flex-direction:column;line-height:.95;font-weight:800;font-size:16px}
+  h1{font-size:26px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;margin-top:18px}
+  .lead{color:var(--navy-soft);margin-top:8px}
+  .step{display:inline-block;font-weight:800;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin:30px 0 10px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+  label{display:block;font-weight:700;font-size:13px;margin:14px 0 6px}
+  label:first-child{margin-top:0}
+  input,select,textarea{width:100%;font-family:inherit;font-size:14px;font-weight:600;color:var(--navy);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:11px 13px}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal)}
+  textarea{resize:vertical;line-height:1.5}
+  .hint{font-size:12px;color:var(--navy-soft);font-weight:500;margin-top:5px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:520px){.row2{grid-template-columns:1fr}}
+  .btn{display:inline-flex;align-items:center;gap:8px;border:2px solid transparent;border-radius:999px;font-weight:700;font-size:14px;padding:12px 20px;cursor:pointer;transition:transform .15s,background .15s,color .15s}
+  .btn-pri{background:var(--teal);color:#fff}.btn-pri:hover{background:var(--teal-dark);transform:translateY(-1px)}
+  .btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--navy);border-color:var(--navy)}.btn-ghost:hover{background:var(--navy);color:#fff}
+  .btn-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .list{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+  .item{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .item .ix{font-weight:800;color:var(--teal);font-size:13px;min-width:20px}
+  .item .info{flex:1;min-width:0}
+  .item .info b{font-size:14px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .item .info small{color:var(--navy-soft);font-weight:600;font-size:11.5px}
+  .item .ctrl{display:flex;gap:4px}
+  .ib{width:30px;height:30px;border:1px solid var(--line);background:#fff;border-radius:8px;cursor:pointer;font-weight:800;color:var(--navy);font-size:13px;display:grid;place-items:center}
+  .ib:hover{border-color:var(--teal);color:var(--teal)}
+  .ib.del:hover{border-color:#E5484D;color:#E5484D}
+  .pill{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:99px;background:var(--cream);color:var(--navy-soft)}
+  .empty{color:var(--navy-soft);font-weight:600;text-align:center;padding:22px;border:2px dashed var(--line);border-radius:12px;margin-top:14px}
+  #out{margin-top:14px;min-height:160px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;background:#0B1A2E;color:#CFE9DF;border-color:#0B1A2E}
+  .ok{color:var(--teal);font-weight:800;font-size:13px;margin-left:8px;opacity:0;transition:.2s}
+  .ok.show{opacity:1}
+  .note{background:#fff;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:10px;padding:14px 16px;margin-top:16px;font-size:13px;color:var(--navy-soft)}
+  .note b{color:var(--navy)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="lock">
+    <svg class="box" viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="12" fill="none" stroke="#10B98F" stroke-width="5"/><path d="M14 25 l8 8 l14 -17" fill="none" stroke="#10B98F" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="wm"><span>Hangisi</span><span>Şenlik?</span></div>
+  </div>
+  <h1>Feed Oluşturucu</h1>
+  <p class="lead">Yeni Instagram postunu ekle → JSON'u kopyala/indir → <b>feed.json</b>'ı güncelle → git push. Token yok, ücret yok.</p>
+
+  <div class="step">1 · Mevcut listeyi yükle (opsiyonel)</div>
+  <div class="panel">
+    <label>Şu anki feed.json içeriğini buraya yapıştır</label>
+    <textarea id="loadbox" rows="4" placeholder='[ { "kind": "external", ... } ]'></textarea>
+    <div class="hint">İlk kez kullanıyorsan boş bırakıp aşağıdaki "Başlangıç listesini yükle"ye basabilirsin.</div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="loadFromBox()">Yapıştırılanı yükle</button>
+      <button class="btn btn-ghost" onclick="loadSeed()">Başlangıç listesini yükle</button>
+    </div>
+  </div>
+
+  <div class="step">2 · Yeni gönderi ekle</div>
+  <div class="panel">
+    <label>Başlık</label>
+    <input id="f-title" placeholder="15.000 TL Bandında Robot Süpürge">
+    <div class="row2">
+      <div>
+        <label>Kategori etiketi</label>
+        <select id="f-tag">
+          <option>Küçük Ev Aletleri</option>
+          <option>Beyaz Eşya</option>
+          <option>Teknoloji</option>
+          <option>Ev Tekstili / Dekorasyon</option>
+          <option>Diğer</option>
+        </select>
+      </div>
+      <div>
+        <label>Tarih</label>
+        <input id="f-date" placeholder="Haziran 2026">
+      </div>
+    </div>
+    <label>Instagram gönderi linki</label>
+    <input id="f-url" placeholder="https://www.instagram.com/p/XXXXXXXXX/">
+    <div class="hint">Gönderiye gir → "..." → "Bağlantıyı kopyala". Kart tıklanınca buraya gider.</div>
+    <div class="btn-row"><button class="btn btn-pri" onclick="addItem()">＋ Listeye ekle</button></div>
+  </div>
+
+  <div class="step">3 · Liste (en üstteki sitede en başta görünür)</div>
+  <div id="list" class="list"></div>
+
+  <div class="step">4 · Çıktıyı al</div>
+  <div class="panel">
+    <textarea id="out" readonly></textarea>
+    <div class="btn-row">
+      <button class="btn btn-navy" onclick="copyOut()">JSON'u kopyala</button><span id="okcopy" class="ok">Kopyalandı ✓</span>
+      <button class="btn btn-ghost" onclick="downloadOut()">feed.json indir</button>
+    </div>
+    <div class="note"><b>Son adım:</b> Bu içeriği repo'daki <b>feed.json</b> dosyasına yapıştır (ya da indirip değiştir) ve git push et. Vercel otomatik yeniden yayınlar; yeni kart birkaç dakika içinde "Yeni çıkanlar"da görünür.</div>
+  </div>
+</div>
+
+<script>
+const SEED=[
+  {kind:"external",tag:"Küçük Ev Aletleri",date:"Haziran 2026",title:"15.000 TL Bandında Dikey Süpürge",url:"https://www.instagram.com/p/DZ4uoQ5kbiq/?img_index=1"},
+  {kind:"external",tag:"Küçük Ev Aletleri",date:"Haziran 2026",title:"15.000 TL Bandında Robot Süpürge",url:"https://www.instagram.com/p/DZsSOFviLgH/?img_index=1"},
+  {kind:"external",tag:"Teknoloji",date:"Haziran 2026",title:"5.000 TL Bandında Kablosuz Kulaklık",url:"https://www.instagram.com/p/DZ11MCVCGCA/?img_index=1"},
+  {kind:"internal",id:"airfryer-10000",tag:"Küçük Ev Aletleri",date:"Haziran 2026",title:"10.000 TL Bandında Airfryer"}
+];
+let items=[];
+
+function trMonth(){
+  const d=new Date().toLocaleDateString("tr-TR",{month:"long",year:"numeric"});
+  return d.charAt(0).toUpperCase()+d.slice(1);
+}
+document.getElementById("f-date").value=trMonth();
+
+function render(){
+  const el=document.getElementById("list");
+  if(!items.length){el.innerHTML='<div class="empty">Liste boş. Yukarıdan gönderi ekle ya da başlangıç listesini yükle.</div>';out();return;}
+  el.innerHTML=items.map((it,i)=>`
+    <div class="item">
+      <span class="ix">${i+1}</span>
+      <div class="info"><b>${escapeHtml(it.title)}</b><small><span class="pill">${it.kind==="internal"?"site içi":"instagram"}</span> ${escapeHtml(it.tag||"")} · ${escapeHtml(it.date||"")}</small></div>
+      <div class="ctrl">
+        <button class="ib" onclick="move(${i},-1)" title="Yukarı">↑</button>
+        <button class="ib" onclick="move(${i},1)" title="Aşağı">↓</button>
+        <button class="ib del" onclick="del(${i})" title="Sil">✕</button>
+      </div>
+    </div>`).join("");
+  out();
+}
+function escapeHtml(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+function addItem(){
+  const title=val("f-title"),tag=val("f-tag"),date=val("f-date"),url=val("f-url").trim();
+  if(!title){alert("Başlık gerekli.");return;}
+  if(!url || !/instagram\.com/.test(url)){alert("Geçerli bir Instagram linki gerekli.");return;}
+  items.unshift({kind:"external",tag,date,title,url});
+  document.getElementById("f-title").value="";document.getElementById("f-url").value="";
+  render();
+}
+function val(id){return document.getElementById(id).value;}
+function del(i){items.splice(i,1);render();}
+function move(i,d){const j=i+d;if(j<0||j>=items.length)return;[items[i],items[j]]=[items[j],items[i]];render();}
+
+function loadSeed(){items=JSON.parse(JSON.stringify(SEED));render();}
+function loadFromBox(){
+  const t=val("loadbox").trim();if(!t){alert("Önce mevcut feed.json içeriğini yapıştır.");return;}
+  try{const a=JSON.parse(t);if(!Array.isArray(a))throw 0;items=a;render();}
+  catch(e){alert("JSON okunamadı. feed.json içeriğini olduğu gibi yapıştırdığından emin ol.");}
+}
+
+function out(){document.getElementById("out").value=JSON.stringify(items,null,2);}
+function copyOut(){
+  const t=document.getElementById("out");t.select();
+  navigator.clipboard.writeText(t.value).then(()=>{const o=document.getElementById("okcopy");o.classList.add("show");setTimeout(()=>o.classList.remove("show"),1500);}).catch(()=>{document.execCommand("copy");});
+}
+function downloadOut(){
+  const blob=new Blob([document.getElementById("out").value],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="feed.json";a.click();URL.revokeObjectURL(a.href);
+}
+
+loadSeed();
+</script>
+</body>
+</html>
