@@ -162,6 +162,62 @@
 
   .fade{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
   .fade.in{opacity:1;transform:none}
+
+  /* nav active + car logo */
+  .nav-links a.active{color:var(--teal)}
+  .carbox{width:48px;height:29px;display:block;flex:none}
+  .carbox svg{width:100%;height:100%}
+  .wm .oto-sub{color:var(--teal);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:800}
+
+  /* otomobil hero logo */
+  .oto-logo{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+  .oto-logo .carbig{width:88px;height:53px;flex:none}
+  .oto-logo .carbig svg{width:100%;height:100%}
+  .oto-logo .wm2{font-weight:800;line-height:1.02;letter-spacing:-.01em;font-size:23px}
+  .oto-logo .wm2 .l1,.oto-logo .wm2 .l3{color:var(--navy)}
+  .oto-logo .wm2 .l2{color:var(--teal)}
+
+  /* HSS — weighted criteria */
+  .hss{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+  @media(max-width:900px){.hss{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.hss{grid-template-columns:1fr}}
+  .hc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+  .hc .hi{width:42px;height:42px;border-radius:11px;background:var(--teal);display:grid;place-items:center;margin-bottom:12px}
+  .hc .hi svg{width:23px;height:23px;color:#fff}
+  .hc b{font-size:14.5px;font-weight:700;display:block;line-height:1.25;min-height:2.4em}
+  .hc .w{margin-top:10px;font-weight:800;font-size:12.5px;color:var(--teal);letter-spacing:.04em}
+  .hc .wb{margin-top:6px;height:6px;border-radius:99px;background:#ECE8DC;overflow:hidden}
+  .hc .wb i{display:block;height:100%;background:var(--teal);border-radius:99px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+  .hss-note{margin-top:16px;font-size:13px;color:var(--navy-soft);font-weight:500}
+
+  /* ana sayfa eyebrow satırı + otomobil girişi */
+  .eyebrow-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .eyebrow-link{cursor:pointer;display:inline-flex;align-items:center;gap:8px;border-color:var(--teal)!important;color:var(--navy)}
+  .eyebrow-link .ec{width:24px;height:15px;display:block;flex:none}
+  .eyebrow-link .ec svg{width:100%;height:100%}
+  .eyebrow-link:hover{background:var(--teal);color:#fff}
+
+  /* HSS skor rozeti + otomobil karşılaştırma */
+  .hss-badge{background:var(--navy);color:#fff;border-radius:14px;padding:10px 18px;text-align:center;flex:none}
+  .hss-badge .n{display:block;font-weight:900;font-size:27px;line-height:1}
+  .hss-badge .t{display:block;font-weight:800;font-size:11px;letter-spacing:.12em;color:var(--teal);margin-top:2px}
+  .ratings8{grid-template-columns:repeat(4,1fr);gap:12px 20px}
+  @media(max-width:760px){.ratings8{grid-template-columns:1fr 1fr}}
+  @media(max-width:460px){.ratings8{grid-template-columns:1fr}}
+  .editor-banner{display:flex;gap:16px;background:#fff;border:2px solid var(--teal);border-radius:18px;padding:22px;box-shadow:var(--shadow);margin-top:10px}
+  .editor-banner .eb-ic{width:46px;height:46px;flex:none;border-radius:12px;background:var(--teal);display:grid;place-items:center}
+  .editor-banner .eb-ic svg{width:26px;height:26px;color:#fff}
+  .editor-banner .eb-t{font-weight:800;font-size:17px;margin-bottom:4px}
+  .editor-banner p{color:var(--navy-soft);font-size:14px;font-weight:500;margin-top:5px}
+  .editor-banner .eb-ama b{color:var(--navy)}
+  .role .trf{display:inline-flex;align-items:center;gap:4px;color:var(--teal)}
+  .role .trf svg{width:13px;height:13px}
+  .scens{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+  @media(max-width:620px){.scens{grid-template-columns:1fr}}
+  .scen{display:flex;justify-content:space-between;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .scen-l{font-weight:600;font-size:14px;color:var(--navy-soft)}
+  .scen-c{font-weight:800;font-size:14.5px;color:var(--teal);text-align:right}
+
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.fade{opacity:1;transform:none}html{scroll-behavior:auto}}
 </style>
 </head>
@@ -176,14 +232,15 @@
 
 <nav>
   <div class="wrap nav-in">
-    <div class="lock" onclick="go('#/')">
+    <div class="lock" id="brand" onclick="go(brandTarget())">
       <svg class="box" viewBox="0 0 48 48"><use href="#hsbox"/></svg>
       <div class="wm"><span>Hangisi</span><span>Senlik?</span></div>
     </div>
     <div class="nav-links">
-      <a onclick="go('#/')">Ana sayfa</a>
-      <a onclick="go('#/kategoriler')">Kategoriler</a>
-      <a class="nav-cta" href="https://www.instagram.com/hangisisenlik/" target="_blank" rel="noopener">
+      <a id="navHome" onclick="go('#/')">Ana sayfa</a>
+      <a id="navKat" onclick="go('#/kategoriler')">Kategoriler</a>
+      <a id="navOto" onclick="go('#/otomobil')">Otomobil</a>
+      <a id="navCta" class="nav-cta" href="https://www.instagram.com/hangisisenlik/" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
         Takip et
       </a>
@@ -219,6 +276,18 @@ const I = {
   more:'<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>',
   dot:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14"/></svg>'
 };
+
+Object.assign(I, {
+  car:'<svg viewBox="0 0 72 42" xmlns="http://www.w3.org/2000/svg"><path d="M7 27 C7 19 13 15 21 14 L34 13 C42 13 48 17 53 22 L59 23 C65 24 67 26 67 30 L67 31 C67 32 66 33 65 33 L9 33 C8 33 7 32 7 31 Z" fill="#10B98F"/><path d="M23 17 C27 15 32 15 36 16.5 L41 21 L25.5 21 C23 21 21.6 18.5 23 17 Z" fill="#fff"/><circle cx="23" cy="33" r="8.4" fill="#fff"/><circle cx="51" cy="33" r="8.4" fill="#fff"/><circle cx="23" cy="33" r="6.7" fill="#061D3A"/><circle cx="51" cy="33" r="6.7" fill="#061D3A"/><text x="23" y="36.4" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="800" font-size="9" fill="#fff">?</text><path d="M47.7 33 l2.3 2.4 l4.2 -4.8" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  gauge:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM12 12l5-4M4 18a9 9 0 1 1 16 0"/></svg>',
+  seat:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 11V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v5M5 11h9a3 3 0 0 1 3 3v3M5 11l-1 6M7 21h11"/></svg>',
+  shield:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 3l8 3v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>',
+  fuel:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="4" y="3" width="10" height="18" rx="2"/><path d="M4 11h10M14 7l3 2v7a2 2 0 0 0 3 0V9l-3-3"/></svg>',
+  wrench:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M15 5a4 4 0 0 0-5 5l-7 7 3 3 7-7a4 4 0 0 0 5-5l-3 3-3-3z"/></svg>',
+  spark2:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2l1.8 4.7L18 8l-4.2 1.3L12 14l-1.8-4.7L6 8l4.2-1.3z"/><path d="M18 14l.9 2.3L21 17l-2.1.7L18 20l-.9-2.3L15 17l2.1-.7z" opacity=".6"/></svg>',
+  tag2:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10z"/><circle cx="7.5" cy="7.5" r="1.4" fill="#fff" stroke="none"/></svg>',
+  userstar:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6 1 0 2 .25 2.8.7"/><path d="M17.5 13.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2-1.6-1.5 2.2-.3z" fill="#fff" stroke="none"/></svg>'
+});
 
 /* ===== KATMAN 1 — sabit omurga (her üründe) ===== */
 const CORE = [
@@ -367,7 +436,10 @@ function homeView(){
   <header>
     <div class="blob"></div><div class="dots">${"<i></i>".repeat(28)}</div>
     <div class="wrap hero">
-      <span class="eyebrow">Ürün karşılaştırma platformu</span>
+      <div class="eyebrow-row">
+        <span class="eyebrow">Ürün karşılaştırma platformu</span>
+        <a class="eyebrow eyebrow-link" onclick="go('#/otomobil')"><span class="ec">${I.car}</span> Otomobil karşılaştırma platformu →</a>
+      </div>
       <h1 class="head">HANGİSİNİ ALACAĞINA<br>SAATLER HARCAMA.</h1>
       <p class="lead-strong">Senin için karşılaştırdık.</p>
       <p class="sub">Kullanıcı yorumları, özellik ve fiyat analizinden sonra <b>fiyatına gerçekten değen</b> ürünleri buluyoruz.</p>
@@ -463,21 +535,249 @@ function ctaBand(){return `<section><div class="wrap"><div class="cta-band fade"
   <div class="btn-row"><a class="btn btn-pri" href="https://www.instagram.com/hangisisenlik/" target="_blank" rel="noopener">${I.insta} @hangisisenlik</a><a class="btn btn-sec" href="https://www.instagram.com/hangisisenlik/" target="_blank" rel="noopener">İşbirliği için yaz</a></div>
 </div></div></section>`;}
 
+/* ===================== OTOMOBİL BÖLÜMÜ ===================== */
+const OTO_IG = "https://www.instagram.com/hangisisenlikoto/"; // Hangisi Senlik Otomobil hesabı
+
+/* Hangisi Senlik Skoru (HSS) — 8 ağırlıklı kriter (toplam %100) */
+const HSS = [
+  ["Performans & sürüş",15,I.gauge],
+  ["Konfor & yaşam alanı",15,I.seat],
+  ["Donanım & güvenlik",15,I.shield],
+  ["Fiyat / performans",15,I.tag2],
+  ["Tasarım & algılanan kalite",10,I.spark2],
+  ["Tüketim / enerji maliyeti",10,I.fuel],
+  ["Servis & işletme",10,I.wrench],
+  ["Kullanıcı deneyimi",10,I.userstar]
+];
+
+/* Otomobil segment/kategorileri (HSS omurgası + segmente özel öncelikler) */
+const OTO_SEG = {
+  hatchback:{name:"Hatchback / Şehir",intro:"Şehir içi pratiklik, park kolaylığı ve düşük yakıt öne çıkar.",focus:["Şehir içi yakıt tüketimi","Park & manevra kolaylığı","Bagaj yeterliliği"]},
+  sedan:{name:"Sedan",intro:"Konfor, bagaj hacmi ve uzun yol dengesi belirleyicidir.",focus:["Arka diz mesafesi","Bagaj hacmi","Uzun yol konforu"]},
+  suv:{name:"SUV / Crossover",intro:"Yüksek sürüş pozisyonu, iç hacim ve algılanan değer önemlidir.",focus:["İç & bagaj hacmi","Yol yüksekliği","Çekiş / 4x4 seçeneği"]},
+  ev:{name:"Elektrikli (EV)",intro:"Menzil, şarj altyapısı ve batarya garantisi kritik kriterlerdir.",focus:["Gerçek menzil","Şarj hızı (AC/DC)","Batarya garanti süresi"]},
+  hybrid:{name:"Hibrit",intro:"Şehir içi tüketim ve elektrikli sürüş oranı fark yaratır.",focus:["Şehir içi tüketim","Elektrikli mod payı","Vergi / SCT avantajı"]},
+  sw:{name:"Station Wagon",intro:"Maksimum bagaj ve aile kullanımı için yük kapasitesi önemlidir.",focus:["Bagaj hacmi","Katlanır koltuk düzeni","Çatı / yük taşıma"]},
+  ticari:{name:"Ticari / Van",intro:"Yük hacmi, dayanıklılık ve işletme maliyeti önde gelir.",focus:["Yük hacmi & taban","Yedek parça maliyeti","Servis yaygınlığı"]}
+};
+
+const OTO_GROUP = [
+  {t:"Hatchback / Şehir",seg:"hatchback"},{t:"Sedan",seg:"sedan"},{t:"SUV / Crossover",seg:"suv"},
+  {t:"Elektrikli (EV)",seg:"ev"},{t:"Hibrit",seg:"hybrid"},{t:"Station Wagon",seg:"sw"},{t:"Ticari / Van",seg:"ticari"}
+];
+
+/* Yeni çıkanlar — otomobil (Instagram içerikleri) */
+const OTO_FEED = [
+  {kind:"external",tag:"Sıfır Araç",date:"Haziran 2026",title:"1.5 Milyon TL Bandında Sıfır Araç Karşılaştırması",url:"https://www.instagram.com/p/DaN2axsANyW/?img_index=1"},
+  {kind:"external",tag:"Rehber",date:"Haziran 2026",title:"Araba Seçmeden Önce Kendine Soracağın 7 Soru",url:"https://www.instagram.com/p/DaN7EFsgsRl/?img_index=1"},
+  {kind:"external",tag:"HSS Sistemi",date:"Haziran 2026",title:"HSS Hangi Kriterlere Bakar?",url:"https://www.instagram.com/p/DaN2MdpDVKX/?img_index=1"}
+];
+let OTO_LIVE = OTO_FEED;
+async function loadOtoFeed(){
+  for(const u of ["otomobil-feed.json"]){
+    try{const r=await fetch(u,{cache:"no-store"});if(r.ok){const j=await r.json();const a=Array.isArray(j)?j:j.items;if(Array.isArray(a)&&a.length) return a;}}catch(e){}
+  }
+  return OTO_FEED;
+}
+
+function feedCards(list){
+  return list.map(it=>{
+    const tag=esc(it.tag||(it.cat&&CATS[it.cat]?CATS[it.cat].name:""));
+    const inner=`<div class="cb"></div><div class="ce">${tag}${it.date?" · "+esc(it.date):""}</div><h3>${esc(it.title)}</h3>`;
+    if(it.kind==="internal") return `<div class="cmp-card fade" onclick="go('${it.route||('#/c/'+it.id)}')">${inner}<span class="go">Karşılaştırmayı aç →</span></div>`;
+    return `<a class="cmp-card fade" href="${it.url}" target="_blank" rel="noopener">${inner}<span class="go">${I.insta} Instagram'da gör ↗</span></a>`;
+  }).join("");
+}
+
+function carLogoBlock(){
+  return `<div class="oto-logo"><span class="carbig">${I.car}</span><div class="wm2"><div class="l1">Hangisi</div><div class="l2">Senlik</div><div class="l3">Otomobil</div></div></div>`;
+}
+
+function hssHtml(){
+  return HSS.map(([t,w,ic])=>`<div class="hc fade"><div class="hi">${ic}</div><b>${t}</b><div class="w">Ağırlık · %${w}</div><div class="wb"><i data-w="${Math.round(w/15*100)}"></i></div></div>`).join("");
+}
+
+function otomobilView(){
+  const segs=OTO_GROUP.map(s=>`<div class="cat-card fade" onclick="go('#/o/${s.seg}')"><div class="ci">${I.car}</div><div class="grp">Segment</div><h3>${esc(s.t)}</h3><span class="meta">Kriterleri gör ${I.dot}</span></div>`).join("");
+  return `
+  <header>
+    <div class="blob"></div><div class="dots">${"<i></i>".repeat(28)}</div>
+    <div class="wrap hero">
+      ${carLogoBlock()}
+      <div class="eyebrow-row">
+        <span class="eyebrow">Otomobil karşılaştırma platformu</span>
+        <a class="eyebrow eyebrow-link" onclick="go('#/')">Ürün karşılaştırma platformu →</a>
+      </div>
+      <h1 class="head">Hangi otomobil<br><span class="teal">sana uygun?</span></h1>
+      <p class="sub">Bütçene ve kullanımına göre otomobilleri <b>8 kriterli Hangisi Senlik Skoru (HSS)</b> ile karşılaştırıyoruz. Doğru otomobil, modelden önce <b>kullanım şekline</b> göre seçilir.</p>
+      <p class="stamp-line">Almadan önce mutlaka bak.</p>
+      <div class="cta-row">
+        <a class="btn btn-pri" onclick="document.getElementById('hss').scrollIntoView({behavior:'smooth'})">HSS nedir?</a>
+        <a class="btn btn-sec" href="${OTO_IG}" target="_blank" rel="noopener">${I.insta} Instagram</a>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head fade"><span class="sec-eyebrow">Son karşılaştırmalar</span><h2>Yeni çıkanlar</h2></div>
+      <div class="grid g-feed">${feedCards(OTO_LIVE)}</div>
+    </div>
+  </section>
+
+  <section id="hss" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head fade"><span class="sec-eyebrow">Hangisi Senlik Skoru (HSS)</span><h2>8 kriter, <span class="teal">tek skor</span></h2><p>Her otomobili aynı 8 ağırlıklı başlıkta puanlıyoruz; toplam %100. Tek bir modele değil, sana uygun olana bakıyoruz.</p></div>
+      <div class="hss">${hssHtml()}</div>
+      <p class="hss-note">Ağırlıklar toplamı %100'dür. Performans, konfor, donanım/güvenlik ve fiyat/performans en yüksek paya (%15) sahiptir.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head fade"><span class="sec-eyebrow">Segmentler</span><h2>Neye göre arıyorsun?</h2><p>Her segmentin kendine özel öncelikleri var; HSS omurgası ise hepsinde sabit.</p></div>
+      <div class="grid g3">${segs}</div>
+    </div>
+  </section>
+
+  ${ctaBandOto()}`;
+}
+
+function otoSegView(id){
+  const s=OTO_SEG[id]; if(!s) return notFound();
+  const hss=HSS.map(([t,w])=>`<div class="crit-tag">${I.check}<span>${t} · %${w}</span></div>`).join("");
+  const focus=s.focus.map(f=>`<div class="crit-tag">${I.dot}<span>${f}</span></div>`).join("");
+  return `<section><div class="wrap">
+    <div class="crumb"><a onclick="go('#/')">Ana sayfa</a> / <a onclick="go('#/otomobil')">Otomobil</a> / <span>${s.name}</span></div>
+    <div class="sec-head fade" style="margin-top:18px"><span class="sec-eyebrow">Otomobil segmenti</span><h2>${s.name}</h2><p>${s.intro}</p></div>
+    <div class="crit-block special fade"><h4>${I.dot} Bu segmentte özellikle</h4><div class="crit-tags">${focus}</div></div>
+    <div class="crit-block core fade"><h4>${I.check} Her otomobilde HSS omurgası (8 kriter · %100)</h4><div class="crit-tags">${hss}</div></div>
+    <div class="empty fade" style="margin-top:34px"><h3>Bu segmentte karşılaştırma yolda</h3><p>Skorlama sistemi hazır. Yeni otomobil karşılaştırmalarını kaçırmamak için Instagram'dan takip et.</p><div style="margin-top:18px"><a class="btn btn-teal" href="${OTO_IG}" target="_blank" rel="noopener">${I.insta} Takip et</a></div></div>
+  </div></section>${ctaBandOto()}`;
+}
+
+function ctaBandOto(){return `<section><div class="wrap"><div class="cta-band fade">
+  <h2>Hangi araba?<br><span class="teal">Almadan önce bak.</span></h2>
+  <p>Bütçene ve kullanımına göre otomobil karşılaştırmaları Instagram'da. Galeri/markaysan ve aracını HSS sisteminde görmek istiyorsan DM kapımız açık.</p>
+  <div class="btn-row"><a class="btn btn-pri" href="${OTO_IG}" target="_blank" rel="noopener">${I.insta} Hangisi Senlik Otomobil</a><a class="btn btn-sec" href="${OTO_IG}" target="_blank" rel="noopener">İşbirliği için yaz</a></div>
+</div></div></section>`;}
+
+I.trophy='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 5H4v2a3 3 0 0 0 3 3M17 5h3v2a3 3 0 0 1-3 3"/></svg>';
+
+/* ===================== OTOMOBİL — SİTE İÇİ KARŞILAŞTIRMA ===================== */
+const OTO_COMPS = {
+  "sifir-15m":{
+    title:"1,5 Milyon TL Bandında Sıfır Otomobil Karşılaştırması",
+    date:"Haziran 2026",
+    post:"https://www.instagram.com/p/DaN2axsANyW/?img_index=1",
+    intro:"5 sıfır otomobili 8 kriterli Hangisi Senlik Skoru (HSS) ile değerlendirdik. Teknik veriler, kullanım senaryoları, kullanıcı deneyimleri ve fiyat/performans birlikte ele alındı.",
+    crit:["Tasarım","Sürüş","Tüketim","Konfor","Teknoloji","F/P","İşletme","Kullanıcı"],
+    editor:{name:"Fiat Egea Sedan",hss:"8.4",
+      neden:"Bu karşılaştırmanın en trend otomobili değil; ama 1,5 milyon TL civarında en fazla gerçek hayat karşılığı veren otomobil. 520 L bagaj, 320 Nm tork, aile/uzun yol yapısı ve güçlü servis-parça dengesi.",
+      ama:"Yıllık kilometresi düşük olan, çoğunlukla şehir içinde kullanan veya otomatik isteyen biri için Egea doğru tercih olmayabilir."},
+    scenarios:[["Evde / işte şarj varsa","Citroën ë-C3"],["Hatchback + sürüş keyfi","Opel Corsa"],["Dengeli hatchback","Hyundai i20"],["Yoğun şehir içi / ikinci otomobil","Kia Picanto"]],
+    cars:[
+      {rank:1,name:"Fiat Egea Sedan",trim:"1.6 M.Jet 130 HP Easy 6MT",price:"1.499.900 TL",hss:"8.4",editor:true,
+        s:[8.0,8.5,8.8,8.2,7.0,9.1,9.1,8.5],
+        not:"Grubun en 'hayat çözen' otomobili. Büyük bagaj, güçlü tork, uzun yol kabiliyeti ve güçlü servis erişimiyle gerçek hayatta yüksek karşılık veriyor. Tasarım ve teknoloji tarafında daha yeni hatchback'ler kadar iddialı değil.",
+        kime:"Aile kullanımı, sık uzun yol, yüksek yıllık kilometre ve bagaj ihtiyacı olan kullanıcıya."},
+      {rank:2,name:"Citroën ë-C3",trim:"83 kW / 113 HP Plus · Elektrikli",price:"1.420.000 TL",hss:"8.1",
+        s:[8.2,8.4,7.6,8.7,8.6,7.7,7.1,7.5],
+        not:"Evde/işte şarj imkânı olanlar için grubun en konforlu ve düşük günlük maliyetli seçeneği. Sessiz ve konforlu; şarj altyapısına erişim yoksa avantajın önemli bölümü kayboluyor.",
+        kime:"Evde/işte düzenli şarj edebilen, günlük rotası belli, şehir içi kullanımı yüksek kullanıcıya.",
+        note:"* Tüketim ve F/P puanları halka açık şarj ağırlıklı varsayımıyladır. Ev/iş şarjı olan kullanıcıda HSS 8.4'e çıkar."},
+      {rank:3,name:"Opel Corsa",trim:"1.2 100 HP MT6 Edition",price:"1.395.000 TL",hss:"8.0",
+        s:[8.7,8.4,7.7,7.4,7.8,8.6,7.5,7.4],
+        not:"Listenin sürüş karakteri en güçlü hatchback'i. Turbo motor, tasarım ve direksiyon hissiyle tek/çift kullanıcıya güçlü bir paket. Aile beklentisinde arka alan ve bagaj sınırı belirginleşiyor.",
+        kime:"Sürüş keyfi isteyen, çoğunlukla 1-2 kişi kullanan, manuel şanzımanı sorun etmeyen kullanıcıya."},
+      {rank:4,name:"Hyundai i20",trim:"1.0 T-GDi 90 PS 6MT Jump",price:"1.560.000 TL",hss:"7.7",
+        s:[8.6,7.8,7.5,7.6,7.3,7.2,8.5,8.0],
+        not:"Grubun en dengeli ve 'riski düşük' hatchback tercihlerinden biri. Turbo motor günlük kullanımda yeterli; giriş paket fiyat/donanım/arka alan dengesi sorgulanabilir.",
+        kime:"İlk sıfır otomobilini alan; şehir içi ve ara sıra uzun yol kullanan hatchback alıcısına."},
+      {rank:5,name:"Kia Picanto",trim:"1.0 67 PS AMT Cool",price:"1.335.000 TL",hss:"7.3",
+        s:[7.8,6.1,8.1,6.2,8.6,7.0,8.0,7.5],
+        not:"Park, manevra ve kısa rotalarda çok rahat. AMT şanzımanın karakteri, düşük motor performansı ve sınırlı yaşam alanı nedeniyle tek otomobil olarak herkese uygun değil.",
+        kime:"Merkezde yaşayan, çoğunlukla 1-2 kişi kullanan, ikinci araç arayan kullanıcıya."}
+    ]
+  }
+};
+
+function otoCompView(id){
+  const c=OTO_COMPS[id]; if(!c) return notFound();
+  const cars=c.cars.map(p=>{
+    const ratings=p.s.map((v,i)=>{const w=Math.round(v*10);const wn=v<7;return `<div class="rt"><div class="rl"><span>${c.crit[i]}</span><span class="${wn?'':'teal'}">${v.toFixed(1)}</span></div><div class="bar ${wn?'warn':''}"><i data-w="${w}"></i></div></div>`;}).join("");
+    return `<div class="prod fade">
+      <div class="prod-top">
+        <div>
+          <div class="role">${p.rank}. sıra${p.editor?` · <span class="trf">${I.trophy} Editörün Seçimi</span>`:""}</div>
+          <h3>${esc(p.name)}</h3>
+          <div class="muted" style="font-weight:600;font-size:13.5px;margin-top:3px">${esc(p.trim)}</div>
+          <div class="price">Fiyat: ${p.price}</div>
+        </div>
+        <div class="hss-badge"><span class="n">${p.hss}</span><span class="t">HSS</span></div>
+      </div>
+      <div class="ratings ratings8">${ratings}</div>
+      <div class="why"><div><h5>Hangisi Senlik Notu</h5><p>${p.not}</p></div><div><h5>Kime uygun?</h5><p>${p.kime}</p></div></div>
+      ${p.note?`<p class="disc">${p.note}</p>`:""}
+    </div>`;
+  }).join("");
+  const scen=c.scenarios.map(([s,car])=>`<div class="scen fade"><span class="scen-l">${s}</span><span class="scen-c">${car}</span></div>`).join("");
+  return `<section><div class="wrap">
+    <div class="crumb"><a onclick="go('#/')">Ana sayfa</a> / <a onclick="go('#/otomobil')">Otomobil</a> / <span>Karşılaştırma</span></div>
+    <div class="sec-head fade" style="margin-top:18px;max-width:62ch"><span class="sec-eyebrow">Sıfır Otomobil · ${c.date}</span><h2>${c.title}</h2><p>${c.intro}</p></div>
+    <div class="editor-banner fade">
+      <div class="eb-ic">${I.trophy}</div>
+      <div>
+        <div class="eb-t">Editörün Seçimi · <span class="teal">${c.editor.name}</span> · HSS ${c.editor.hss}</div>
+        <p>${c.editor.neden}</p>
+        <p class="eb-ama"><b>Ama herkese uygun değil:</b> ${c.editor.ama}</p>
+      </div>
+    </div>
+    ${cars}
+    <div class="sec-head fade" style="margin-top:42px"><span class="sec-eyebrow">Senaryoya göre doğru seçim</span></div>
+    <div class="scens">${scen}</div>
+    <p class="disc">Not: Fiyatlar Haziran 2026 kampanya / fiyat listeleri referans alınarak karşılaştırıldı; bayi, stok ve opsiyonlara göre değişebilir. HSS; üretici verileri, güncel fiyatlar, kamuya açık kullanıcı deneyimleri ve editöryal değerlendirme üzerinden hazırlanır; teknik ekspertiz veya satın alma taahhüdü değildir.</p>
+    <div style="margin-top:22px"><a class="btn btn-pri" href="${c.post}" target="_blank" rel="noopener">${I.insta} Bu karşılaştırmanın postunu gör</a></div>
+  </div></section>${ctaBandOto()}`;
+}
+
+/* ----- Nav: bölüme göre logo + aktif sekme ----- */
+function isOto(h){return h==="#/otomobil"||h.startsWith("#/o/")||h.startsWith("#/oc/");}
+let _brandTarget="#/";
+function brandTarget(){return _brandTarget;}
+function updateNav(h){
+  const oto=isOto(h);
+  _brandTarget=oto?"#/otomobil":"#/";
+  const b=document.getElementById("brand");
+  b.innerHTML = oto
+    ? `<span class="carbox">${I.car}</span><div class="wm"><span>Hangisi Senlik</span><span class="oto-sub">Otomobil</span></div>`
+    : `<svg class="box" viewBox="0 0 48 48"><use href="#hsbox"/></svg><div class="wm"><span>Hangisi</span><span>Senlik?</span></div>`;
+  ["navHome","navKat","navOto"].forEach(id=>document.getElementById(id).classList.remove("active"));
+  document.getElementById("navCta").href = oto ? OTO_IG : "https://www.instagram.com/hangisisenlik/";
+  if(oto) document.getElementById("navOto").classList.add("active");
+  else if(h==="#/"||h==="") document.getElementById("navHome").classList.add("active");
+  else if(h==="#/kategoriler"||h.startsWith("#/k/")||h.startsWith("#/c/")) document.getElementById("navKat").classList.add("active");
+}
+
 function go(hash){location.hash=hash;}
 function render(){
   const h=location.hash||"#/";const app=document.getElementById("app");let html;
   if(h==="#/"||h==="") html=homeView();
   else if(h==="#/kategoriler") html=catsView();
+  else if(h==="#/otomobil") html=otomobilView();
+  else if(h.startsWith("#/oc/")) html=otoCompView(h.slice(5));
+  else if(h.startsWith("#/o/")) html=otoSegView(h.slice(4));
   else if(h.startsWith("#/k/")) html=catView(h.slice(4));
   else if(h.startsWith("#/c/")) html=compView(h.slice(4));
   else html=notFound();
-  app.innerHTML=html;window.scrollTo({top:0,behavior:"auto"});
-  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");e.target.querySelectorAll(".bar i").forEach(b=>b.style.width=b.dataset.w+"%");io.unobserve(e.target);}});},{threshold:.1});
+  app.innerHTML=html;updateNav(h);window.scrollTo({top:0,behavior:"auto"});
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");e.target.querySelectorAll(".bar i,.wb i").forEach(b=>b.style.width=b.dataset.w+"%");io.unobserve(e.target);}});},{threshold:.1});
   app.querySelectorAll(".fade").forEach(el=>io.observe(el));
 }
 window.addEventListener("hashchange",render);
 render();
 loadFeed().then(f=>{LIVE_FEED=f;const h=location.hash||"#/";if(h==="#/"||h==="") render();});
+loadOtoFeed().then(f=>{OTO_LIVE=f;if(location.hash==="#/otomobil") render();});
 </script>
 </body>
 </html>
